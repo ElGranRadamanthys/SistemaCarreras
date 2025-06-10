@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+
+@{
+    ViewData["Title"] = "Carreras";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Modalidad</th>
+            <th>Duracion(años)</th>
+            <th>Titulo otorgado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var carrera in Model.Carreras)
+        {
+            <tr>
+                <td>@carrera.Id</td>
+                <td>@carrera.Nombre</td>
+                <td>@carrera.Modalidad</td>
+                <td>@carrera.DuracionAnios</td>
+                <td>@carrera.TituloOtorgado</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

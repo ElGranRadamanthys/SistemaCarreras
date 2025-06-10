@@ -1,0 +1,34 @@
+﻿@page
+@model SistemaCarreras.Pages.AlumnosCreate.DeleteAlumnoModel
+@{
+}
+
+<input type="hidden" asp-for="Alumno.Id" />
+
+<form method="post">
+    <h4> estas seguro que queres eliminar este alumno? </h4>
+
+    <div>
+        <strong>Nombre:</strong>@Model.Alumno.Nombre
+    </div>
+
+    <div>
+        <strong>Apellido:</strong>@Model.Alumno.Apellido
+    </div>
+
+    <div>
+        <strong>Dni:</strong>@Model.Alumno.Dni
+    </div>
+
+    <div>
+		<strong>Email:</strong>@Model.Alumno.Email
+    </div>
+
+    <div>
+        <strong>Fecha de Nacimiento:</strong>@Model.Alumno.FechaNacimiento
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancelar</a>
+</form>

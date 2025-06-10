@@ -1,0 +1,41 @@
+﻿@page
+@model SistemaCarreras.Pages.Carreras.IndexModel
+@{
+}
+
+<a asp-page="Create" class="btn btn-success mb-3" ab-3>Agregar carrera</a>
+@if (Model.Carreras.Count == 0)
+{
+    <p>No hay carreras cargadas</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Modalidad</th>
+                <th>Duracion(años)</th>
+                <th>Titulo otorgado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var carrera in Model.Carreras)
+            {
+                <tr>
+                    <td>@carrera.Id</td>
+                    <td>@carrera.Nombre</td>
+                    <td>@carrera.Modalidad</td>
+                    <td>@carrera.DuracionAnios</td>
+                    <td>@carrera.TituloOtorgado</td>
+                    <td>
+                        <a asp-page="Edit" asp-route-id="@carrera.Id" class="btn btn-warning btn-sm">Editar</a>
+                        <a asp-page="Delete" asp-route-id="@carrera.Id" class="btn btn-danger btn-sm">Eliminar</a>
+					</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
