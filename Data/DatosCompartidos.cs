@@ -1,4 +1,6 @@
 ﻿using SistemaCarreras.Models;
+using System.Text.Json;
+
 namespace SistemaCarreras.Data
 {
     public class DatosCompartidos
@@ -11,5 +13,6 @@ namespace SistemaCarreras.Data
             ultimoId++;
             return ultimoId;
         }
+        
     }
 }
