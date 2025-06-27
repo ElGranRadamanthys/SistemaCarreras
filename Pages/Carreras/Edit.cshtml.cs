@@ -9,12 +9,13 @@ namespace SistemaCarreras.Pages.Carreras
 {
     public class EditModel : PageModel
     {
-        public List<string> Modalidades { get; set; } = new List<string>();
         [BindProperty]
         public Carrera Carrera { get; set; }
+       // public List<string> Modalidades { get; set; } = new List<string>();
+        
         public void OnGet(int id)
         {
-            Modalidades = OpcionesModalidad.Lista;
+            var Modalidades = OpcionesModalidad.Lista;
 
             Carrera? carrera = ServicioCarrera.BuscarPorId(id);
             if (carrera != null)
@@ -25,7 +26,7 @@ namespace SistemaCarreras.Pages.Carreras
 
         public IActionResult OnPost()
         {
-            Modalidades = OpcionesModalidad.Lista;
+            var Modalidades = OpcionesModalidad.Lista;
 
             if (!ModelState.IsValid)
             {

@@ -10,8 +10,8 @@ namespace SistemaCarreras.Models
         public string? Nombre { get; set; }
         [Display(Name = "Duracion en Años")]
         [Required(ErrorMessage = "Es necesario una duracion")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "Debe tener entre 5 y 7 años")]
-        public int DuracionAnios { get; set; }
+        [Range(5, 7, ErrorMessage = "Debe tener entre 5 y 7 años")]
+        public int? DuracionAnios { get; set; }
         [Display(Name = "Titulo Otorgado")]
         [Required(ErrorMessage = "Es necesario el nombre del titulo")]
         public string? TituloOtorgado { get; set; }

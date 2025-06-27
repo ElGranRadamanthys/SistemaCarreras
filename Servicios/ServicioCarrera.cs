@@ -26,6 +26,19 @@ namespace SistemaCarreras.Servicios
             var lista = JsonSerializer.Deserialize<List<Carrera>>(json);
             return lista ?? new List<Carrera>();
         }
+        private static Carrera? BuscarCarreraPorId(List<Carrera> lista, int id)
+        {
+
+            foreach (var carrera in lista)
+            {
+                if (carrera.Id == id)
+                {
+                    return carrera;
+                }
+            }
+            return null;
+        }
+
 
         public static void AgregarCarrera(Carrera nuevaCarrera)
         {
@@ -45,7 +58,7 @@ namespace SistemaCarreras.Servicios
                     maxId = carrera.Id;
                 }
             }
-            
+
             return maxId + 1;
         }
 
@@ -67,7 +80,7 @@ namespace SistemaCarreras.Servicios
             var lista = ObtenerCarreras();
             var carreraAEliminar = BuscarCarreraPorId(lista, id);
 
-            if (carreraAEliminar == null)
+            if (carreraAEliminar != null)
             {
                 lista.Remove(carreraAEliminar);
                 GuardarCarreras(lista);
@@ -80,29 +93,14 @@ namespace SistemaCarreras.Servicios
             var carrera = BuscarCarreraPorId(lista, carreraEditada.Id);
 
             
-                if (carrera.Id == carreraEditada.Id)
-                {
-                    carrera.Nombre = carreraEditada.Nombre;
-                    carrera.Modalidad = carreraEditada.Modalidad;
-                    carrera.DuracionAnios = carreraEditada.DuracionAnios;
-                    carrera.TituloOtorgado = carreraEditada.TituloOtorgado;
-                    GuardarCarreras(lista);
-                }  
+            if (carrera != null)
+            {     
+                carrera.Nombre = carreraEditada.Nombre;
+                carrera.Modalidad = carreraEditada.Modalidad;
+                carrera.DuracionAnios = carreraEditada.DuracionAnios;
+                carrera.TituloOtorgado = carreraEditada.TituloOtorgado;
+                GuardarCarreras(lista);
+            }  
         }
-
-        private static Carrera? BuscarCarreraPorId(List<Carrera> lista, int id)
-        {
-            
-            foreach (var carrera in lista)
-            {
-                if (carrera.Id == id)
-                {
-                    return carrera;
-                }
-            }
-            return null;
-        }
-
-        
     }
 }

@@ -2,23 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SistemaCarreras.Data;
 using SistemaCarreras.Models;
+using SistemaCarreras.Servicios;
+using SistemaCarreras.Helpers;
 
 namespace SistemaCarreras.Pages.AlumnosCreate
 {
     public class EditAlumnoModel : PageModel
     {
+        
         [BindProperty]
         public Alumno Alumno { get; set; }
         public void OnGet(int id)
         {
-            foreach (var a in DatosCompartidos.Alumnos)
+            Alumno? alumno = ServicioAlumno.BuscarPorId(id);
+            if (alumno != null)
             {
-                if (a.Id == id)
-                {
-                    Alumno = a;
-                    break;
-
-                }
+                Alumno = alumno;
             }
         }
 
@@ -28,19 +27,8 @@ namespace SistemaCarreras.Pages.AlumnosCreate
             {
                 return Page();
             }
-
-            foreach (var a in DatosCompartidos.Alumnos)
-            {
-                if (a.Id == Alumno.Id)
-                {
-                    a.Nombre = Alumno.Nombre;
-                    a.Apellido = Alumno.Apellido;
-                    a.Email = Alumno.Email;
-                    break;
-                }
-            }
-
-            return RedirectToPage("Index");
+            ServicioAlumno.EditarAlumno(Alumno);
+            return RedirectToPage("IndexAlumno");
         }
     }
 }

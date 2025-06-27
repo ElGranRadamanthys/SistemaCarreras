@@ -4,11 +4,13 @@ using SistemaCarreras.Data;
 using SistemaCarreras.Models;
 using SistemaCarreras.Servicios;
 
+
 namespace SistemaCarreras.Pages.AlumnosCreate
 {
     public class CreateAlumnoModel : PageModel
     {
         
+
         public void OnGet()
         {
         }
@@ -22,23 +24,22 @@ namespace SistemaCarreras.Pages.AlumnosCreate
 
         public IActionResult OnPost()
         {
-            if (DatosCompartidos.Alumnos.Any(a => a.Email == Alumno.Email))
+            /*if (DatosCompartidosAlumno.Alumnos.Any(a => a.Email == Alumno.Email))
             {
                 ModelState.AddModelError("Alumno.Email", "Ya existe un alumno con este email.");
             }
 
-            if (DatosCompartidos.Alumnos.Any(a => a.Dni == Alumno.Dni))
+            if (DatosCompartidosAlumno.Alumnos.Any(a => a.Dni == Alumno.Dni))
             {
                 ModelState.AddModelError("Alumno.Dni", "Ya existe un alumno con este DNI.");
-            }
+            }*/
 
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            Alumno.Id = DatosCompartidos.ObtenerNuevoId();
-            DatosCompartidos.Alumnos.Add(Alumno);
+            ServicioAlumno.AgregarAlumno(Alumno);
             return RedirectToPage("IndexAlumno");
 
         }

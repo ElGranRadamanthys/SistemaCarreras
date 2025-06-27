@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SistemaCarreras.Data;
 using SistemaCarreras.Models;
+using SistemaCarreras.Servicios;
+using SistemaCarreras.Helpers;
+using SistemaCarreras.Pages;
+
 
 namespace SistemaCarreras.Pages.AlumnosCreate
 {
@@ -9,36 +13,21 @@ namespace SistemaCarreras.Pages.AlumnosCreate
     {
         [BindProperty]
         public Alumno Alumno { get; set; }
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            foreach (var a in DatosCompartidos.Alumnos)
+            var alumno= ServicioAlumno.BuscarPorId(id);
+            if (alumno == null)
             {
-                if (a.Id == id)
-                {
-                    Alumno = a;
-                    break;
-                }
+                return RedirectToPage("IndexAlumno");
             }
+
+            Alumno = alumno;
+            return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(int id)
         {
-            Alumno alumnoAEliminar = null;
-
-            foreach (var a in DatosCompartidos.Alumnos)
-            {
-                if (a.Id == Alumno.Id)
-                {
-                    alumnoAEliminar = a;
-                    break;
-                }
-            }
-
-            if (alumnoAEliminar != null)
-            {
-                DatosCompartidos.Alumnos.Remove(alumnoAEliminar);
-
-            }
-            return RedirectToPage("Index");
+            ServicioAlumno.EliminarPorId(id);
+            return RedirectToPage("IndexAlumno");
         }
     }
 }

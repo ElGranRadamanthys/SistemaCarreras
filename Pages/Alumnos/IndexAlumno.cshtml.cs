@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SistemaCarreras.Data;
 using SistemaCarreras.Models;
+using SistemaCarreras.Servicios;
+
 
 namespace SistemaCarreras.Pages.AlumnosCreate
 {
@@ -10,7 +12,7 @@ namespace SistemaCarreras.Pages.AlumnosCreate
         public List<Alumno> Alumnos { get; set; }
         public void OnGet()
         {
-            Alumnos = DatosCompartidos.Alumnos;
+            Alumnos = ServicioAlumno.ObtenerAlumnos();
         }
     }
 }

@@ -6,19 +6,19 @@ namespace SistemaCarreras.Models
     {
         public int Id { get; set; }
         [Display(Name = "Nombre")]
-        [Required]
-        public string Nombre { get; set; }
+        [Required(ErrorMessage = "Agregue un Nombre")]
+        public string? Nombre { get; set; }
         [Display(Name = "Apellido")]
-        [Required]
-        public string Apellido { get; set; }
+        [Required(ErrorMessage = "Agregue un Apellido")]
+        public string? Apellido { get; set; }
         [Display(Name = "DNI")]
-        [Required]
-        public int Dni { get; set; }
+        [Required(ErrorMessage = "Agregue un DNI")]
+        public int? Dni { get; set; }
         [Display(Name = "Fecha de Nacimiento")]
-        [Required]
-        public string FechaNacimiento { get; set; }
+        [Required(ErrorMessage = "Agregue su Fecha de nacimiento")]
+        public string? FechaNacimiento { get; set; }
         [Display(Name = "Email")]
-        [Required]
-        public string Email { get; set; }
+        [Required(ErrorMessage = "Agregue un Email")]
+        public string? Email { get; set; }
     }
 }

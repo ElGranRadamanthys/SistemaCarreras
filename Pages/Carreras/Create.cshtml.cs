@@ -9,9 +9,10 @@ namespace SistemaCarreras.Pages.Carreras
 {
     public class CreateModel : PageModel
     {
-        public List<string> Modalidades { get; set; } = new List<string>();
         [BindProperty]
         public Carrera Carrera { get; set; }
+        public List<string> Modalidades { get; set; } = new List<string>();
+        
         
 
         //public static List<Carrera> listaCarreras = new List<Carrera>();
