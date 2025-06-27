@@ -1,6 +1,7 @@
 ﻿using SistemaCarreras.Models;
 using System.Text.Json;
 using System.IO;
+using System.ComponentModel;
 
 
 namespace SistemaCarreras.Servicios
@@ -54,5 +55,54 @@ namespace SistemaCarreras.Servicios
 
             File.WriteAllText(ruta, textoJson);
         }
+
+        public static Carrera? BuscarPorId(int id)
+        {
+            var lista = ObtenerCarreras();
+            return BuscarCarreraPorId(lista, id);
+        }
+
+        public static void EliminarPorId(int id)
+        {
+            var lista = ObtenerCarreras();
+            var carreraAEliminar = BuscarCarreraPorId(lista, id);
+
+            if (carreraAEliminar == null)
+            {
+                lista.Remove(carreraAEliminar);
+                GuardarCarreras(lista);
+            }
+        }
+
+        public static void EditarCarrera(Carrera carreraEditada)
+        {
+            var lista = ObtenerCarreras();
+            var carrera = BuscarCarreraPorId(lista, carreraEditada.Id);
+
+            
+                if (carrera.Id == carreraEditada.Id)
+                {
+                    carrera.Nombre = carreraEditada.Nombre;
+                    carrera.Modalidad = carreraEditada.Modalidad;
+                    carrera.DuracionAnios = carreraEditada.DuracionAnios;
+                    carrera.TituloOtorgado = carreraEditada.TituloOtorgado;
+                    GuardarCarreras(lista);
+                }  
+        }
+
+        private static Carrera? BuscarCarreraPorId(List<Carrera> lista, int id)
+        {
+            
+            foreach (var carrera in lista)
+            {
+                if (carrera.Id == id)
+                {
+                    return carrera;
+                }
+            }
+            return null;
+        }
+
+        
     }
 }

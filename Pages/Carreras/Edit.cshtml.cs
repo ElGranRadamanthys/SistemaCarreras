@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using SistemaCarreras.Data;
 using SistemaCarreras.Models;
 using SistemaCarreras.Helpers;
+using SistemaCarreras.Servicios;
 
 namespace SistemaCarreras.Pages.Carreras
 {
@@ -15,14 +16,10 @@ namespace SistemaCarreras.Pages.Carreras
         {
             Modalidades = OpcionesModalidad.Lista;
 
-            foreach (var c in DatosCompartidos.Carreras)
+            Carrera? carrera = ServicioCarrera.BuscarPorId(id);
+            if (carrera != null)
             {
-                if (c.Id == id)
-                {
-                    Carrera = c;
-                    break;
-
-                }
+                Carrera = carrera;
             }
         }
 
@@ -35,17 +32,7 @@ namespace SistemaCarreras.Pages.Carreras
                 return Page();
             }
 
-            foreach (var c in DatosCompartidos.Carreras)
-            {
-                if (c.Id == Carrera.Id)
-                {
-                    c.Nombre = Carrera.Nombre;
-                    c.Modalidad = Carrera.Modalidad;
-                    c.DuracionAnios = Carrera.DuracionAnios;
-                    c.TituloOtorgado = Carrera.TituloOtorgado;
-                    break;
-                }
-            }
+            ServicioCarrera.EditarCarrera(Carrera);
 
             return RedirectToPage("Index");
         }

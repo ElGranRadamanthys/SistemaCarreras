@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using SistemaCarreras.Data;
 using SistemaCarreras.Models;
+using SistemaCarreras.Servicios;
 
 namespace SistemaCarreras.Pages.Carreras
 {
@@ -9,35 +10,20 @@ namespace SistemaCarreras.Pages.Carreras
     {
         [BindProperty]
         public Carrera Carrera { get; set; }
-        public void OnGet(int id)
+        public IActionResult OnGet(int id)
         {
-            foreach (var c in DatosCompartidos.Carreras)
+            var carrera= ServicioCarrera.BuscarPorId(id);
+            if (carrera == null)
             {
-                if (c.Id == id)
-                {
-                    Carrera = c;
-                    break;
-                }
+               return RedirectToPage("Index");
             }
+
+            Carrera = carrera;
+            return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPost(int id)
         {
-            Carrera carreraAEliminar = null;
-
-            foreach (var c in DatosCompartidos.Carreras)
-            {
-                if (c.Id == Carrera.Id)
-                {
-                    carreraAEliminar = c;
-                    break;
-                }
-            }
-
-            if (carreraAEliminar != null)
-            {
-                DatosCompartidos.Carreras.Remove(carreraAEliminar);
-
-            }
+            ServicioCarrera.EliminarPorId(id);
             return RedirectToPage("Index");
         }
     }
