@@ -12,6 +12,13 @@ namespace SistemaCarreras.Pages.Carreras
         [BindProperty]
         public Carrera Carrera { get; set; }
         public List<string> Modalidades { get; set; } = new List<string>();
+
+        private readonly ServicioCarrera servicio;
+
+        public CreateModel()
+        {
+            servicio = new ServicioCarrera(); 
+        }
         
         
 
@@ -32,7 +39,7 @@ namespace SistemaCarreras.Pages.Carreras
                 return Page();
             }
 
-            ServicioCarrera.AgregarCarrera(Carrera);
+            servicio.Agregar(Carrera);
             return RedirectToPage("Index");
         }
     }

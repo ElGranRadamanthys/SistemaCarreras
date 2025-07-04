@@ -13,9 +13,15 @@ namespace SistemaCarreras.Pages.AlumnosCreate
     {
         [BindProperty]
         public Alumno Alumno { get; set; }
+        private readonly ServicioAlumno servicio;
+        public DeleteAlumnoModel()
+        {
+            servicio = new ServicioAlumno();
+        }
+
         public IActionResult OnGet(int id)
         {
-            var alumno= ServicioAlumno.BuscarPorId(id);
+            var alumno= servicio.BuscarPorId(id);
             if (alumno == null)
             {
                 return RedirectToPage("IndexAlumno");
@@ -26,7 +32,7 @@ namespace SistemaCarreras.Pages.AlumnosCreate
         }
         public IActionResult OnPost(int id)
         {
-            ServicioAlumno.EliminarPorId(id);
+            servicio.EliminarPorId(id);
             return RedirectToPage("IndexAlumno");
         }
     }

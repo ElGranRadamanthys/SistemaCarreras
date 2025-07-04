@@ -12,7 +12,8 @@ namespace SistemaCarreras.Pages.AlumnosCreate
         public List<Alumno> Alumnos { get; set; }
         public void OnGet()
         {
-            Alumnos = ServicioAlumno.ObtenerAlumnos();
+            var RepoAlumno = new RepositorioCrudJson<Alumno>("alumnos");
+            Alumnos = RepoAlumno.ObtenerTodos();
         }
     }
 }

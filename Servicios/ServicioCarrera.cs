@@ -2,105 +2,44 @@
 using System.Text.Json;
 using System.IO;
 using System.ComponentModel;
+using SistemaCarreras.Servicios;
+
 
 
 namespace SistemaCarreras.Servicios
 {
     public class ServicioCarrera
     {
-        private static string ruta = "Data/carreras.json";
-
-        public static string LeerTextoDelArchivo()
+        private readonly RepositorioCrudJson<Carrera> crud;
+        public ServicioCarrera()
         {
-            if (File.Exists(ruta))
-            {
-                return File.ReadAllText(ruta);
-            }
-            return "[]";
+            crud = new RepositorioCrudJson<Carrera>("carreras");
         }
 
-        public static List<Carrera> ObtenerCarreras()
+        public List<Carrera> ObtenerTodos()
         {
-            string json = LeerTextoDelArchivo();
-
-            var lista = JsonSerializer.Deserialize<List<Carrera>>(json);
-            return lista ?? new List<Carrera>();
-        }
-        private static Carrera? BuscarCarreraPorId(List<Carrera> lista, int id)
-        {
-
-            foreach (var carrera in lista)
-            {
-                if (carrera.Id == id)
-                {
-                    return carrera;
-                }
-            }
-            return null;
+            return crud.ObtenerTodos();
         }
 
-
-        public static void AgregarCarrera(Carrera nuevaCarrera)
+        public void Agregar(Carrera carrera)
         {
-            var carreras = ObtenerCarreras();
-            nuevaCarrera.Id = ObtenerNuevoId(carreras);
-            carreras.Add(nuevaCarrera);
-            GuardarCarreras(carreras);
+            crud.Agregar(carrera);
         }
 
-        public static int ObtenerNuevoId(List<Carrera> carreras)
+        public Carrera? BuscarPorId(int id)
         {
-            int maxId = 0;
-            foreach (var carrera in carreras)
-            {
-                if (carrera.Id > maxId)
-                {
-                    maxId = carrera.Id;
-                }
-            }
-
-            return maxId + 1;
+            return crud.BuscarPorId(id);
         }
 
-        public static void GuardarCarreras(List<Carrera> carreras)
+        public void Editar(Carrera carrera)
         {
-            string textoJson = JsonSerializer.Serialize(carreras);
-
-            File.WriteAllText(ruta, textoJson);
+            crud.Editar(carrera);
         }
 
-        public static Carrera? BuscarPorId(int id)
+        public void EliminarPorId(int id)
         {
-            var lista = ObtenerCarreras();
-            return BuscarCarreraPorId(lista, id);
-        }
-
-        public static void EliminarPorId(int id)
-        {
-            var lista = ObtenerCarreras();
-            var carreraAEliminar = BuscarCarreraPorId(lista, id);
-
-            if (carreraAEliminar != null)
-            {
-                lista.Remove(carreraAEliminar);
-                GuardarCarreras(lista);
-            }
-        }
-
-        public static void EditarCarrera(Carrera carreraEditada)
-        {
-            var lista = ObtenerCarreras();
-            var carrera = BuscarCarreraPorId(lista, carreraEditada.Id);
-
-            
-            if (carrera != null)
-            {     
-                carrera.Nombre = carreraEditada.Nombre;
-                carrera.Modalidad = carreraEditada.Modalidad;
-                carrera.DuracionAnios = carreraEditada.DuracionAnios;
-                carrera.TituloOtorgado = carreraEditada.TituloOtorgado;
-                GuardarCarreras(lista);
-            }  
+            crud.EliminarPorId(id);
         }
     }
 }
+

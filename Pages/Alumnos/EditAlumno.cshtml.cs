@@ -11,10 +11,15 @@ namespace SistemaCarreras.Pages.AlumnosCreate
     {
         
         [BindProperty]
-        public Alumno Alumno { get; set; }
+        public Alumno? Alumno { get; set; }
+        private readonly ServicioAlumno servicio;
+        public EditAlumnoModel()
+        {
+            servicio = new ServicioAlumno();
+        }
         public void OnGet(int id)
         {
-            Alumno? alumno = ServicioAlumno.BuscarPorId(id);
+            Alumno? alumno = servicio.BuscarPorId(id);
             if (alumno != null)
             {
                 Alumno = alumno;
@@ -27,7 +32,7 @@ namespace SistemaCarreras.Pages.AlumnosCreate
             {
                 return Page();
             }
-            ServicioAlumno.EditarAlumno(Alumno);
+            servicio.Editar(Alumno);
             return RedirectToPage("IndexAlumno");
         }
     }

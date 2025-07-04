@@ -10,14 +10,19 @@ namespace SistemaCarreras.Pages.Carreras
     public class EditModel : PageModel
     {
         [BindProperty]
-        public Carrera Carrera { get; set; }
-       // public List<string> Modalidades { get; set; } = new List<string>();
+        public Carrera? Carrera { get; set; }
+        private readonly ServicioCarrera servicio;
+
+        public EditModel()
+        {
+            servicio = new ServicioCarrera();
+        }
         
         public void OnGet(int id)
         {
             var Modalidades = OpcionesModalidad.Lista;
 
-            Carrera? carrera = ServicioCarrera.BuscarPorId(id);
+            Carrera? carrera = servicio.BuscarPorId(id);
             if (carrera != null)
             {
                 Carrera = carrera;
@@ -33,7 +38,7 @@ namespace SistemaCarreras.Pages.Carreras
                 return Page();
             }
 
-            ServicioCarrera.EditarCarrera(Carrera);
+            servicio.Editar(Carrera);
 
             return RedirectToPage("Index");
         }

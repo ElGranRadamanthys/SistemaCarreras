@@ -11,7 +11,8 @@ namespace SistemaCarreras.Pages.Carreras
         public List<Carrera> Carreras { get; set; }
         public void OnGet()
         {
-            Carreras = ServicioCarrera.ObtenerCarreras();
+            var RepoCarrera = new RepositorioCrudJson<Carrera>("carreras");
+            Carreras = RepoCarrera.ObtenerTodos();
         }
     }
 }
