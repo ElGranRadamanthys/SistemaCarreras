@@ -2,31 +2,13 @@
 @model IndexModel
 
 @{
-    ViewData["Title"] = "Grado Superior";
+    ViewData["Title"] = "Inicio";
 }
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Modalidad</th>
-            <th>Duracion(años)</th>
-            <th>Titulo otorgado</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var carrera in Model.Carreras)
-        {
-            <tr>
-                <td>@carrera.Id</td>
-                <td>@carrera.Nombre</td>
-                <td>@carrera.Modalidad</td>
-                <td>@carrera.DuracionAnios</td>
-                <td>@carrera.TituloOtorgado</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="text-center">
+    <h1 class="display-4">Bienvenido a Sistema de Carreras</h1>
+    <p class="lead">Este es un sistema para gestionar carreras y alumnos.</p>
+    <img src="~/imagenes/system.webp" alt="Imagen sistemas" />
+</div>
 
 
